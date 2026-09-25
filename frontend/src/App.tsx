@@ -454,7 +454,7 @@ function App() {
   }, [playing, track.url])
 
   useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent) => {
+    const onKeyDown = (event: globalThis.KeyboardEvent) => {
       const target = event.target
       
       if (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement) return
@@ -506,7 +506,7 @@ function App() {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
-    let data: Uint8Array | null = null
+    let data: Uint8Array<ArrayBuffer> | null = null
     const bars = 88
     let lastWidth = 0
     let lastHeight = 0
@@ -544,7 +544,7 @@ function App() {
       }
 
       if (!data) {
-        data = new Uint8Array(analyser.frequencyBinCount)
+        data = new Uint8Array(new ArrayBuffer(analyser.frequencyBinCount))
       }
       analyser.getByteFrequencyData(data)
 
