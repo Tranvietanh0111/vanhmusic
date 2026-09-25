@@ -9,11 +9,17 @@ DB_URL = os.getenv(
 )
 
 engine = create_engine(DB_URL, pool_pre_ping=True)
-SessionLocal = sessionmaker(bind=engine, autocommit=False, autoflush=False)
+
+SessionLocal = sessionmaker(
+    bind=engine,
+    autocommit=False,
+    autoflush=False
+)
 
 
 def get_db():
     db = SessionLocal()
+
     try:
         yield db
     finally:
